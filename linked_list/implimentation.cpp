@@ -19,7 +19,7 @@ void print()
     cout << "the list is  ";
     while (temp != NULL)
     {
-        cout << (*temp).data << " ";
+        cout << (*temp).data;
         temp = (*temp).next;
     }
     cout << endl;
@@ -33,7 +33,6 @@ int main()
     for (int i = 0; i < n; i++)
     {
         cout << "input a num" << endl;
-        cin >> x;
         insert(x);
         print();
     }
