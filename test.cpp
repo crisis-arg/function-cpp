@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-int binarysearch(int nums[], int n, int x)
+int binary_search(int nums[], int n, int x, bool flag)
 {
    int start = 0;
    int end = n - 1;
@@ -11,7 +11,14 @@ int binarysearch(int nums[], int n, int x)
       if (nums[mid] == x)
       {
          result = mid;
-         end = mid - 1;
+         if (flag)
+         {
+            end = mid - 1;
+         }
+         else
+         {
+            start = mid + 1;
+         }
       }
       else if (x < nums[mid])
       {
@@ -29,13 +36,22 @@ int main()
    int n;
    cin >> n;
    int arr[n];
-   int target;
-   cout << "enter a sorted array: " << endl;
+   cout << "enter a sorted array " << endl;
    for (int i = 0; i < n; i++)
    {
       cin >> arr[i];
    }
+   int target;
    cout << "enter the num " << endl;
    cin >> target;
-   cout << binarysearch(arr, n, target);
+   int first_index = binary_search(arr, n, target, true);
+   if (first_index == -1)
+   {
+      cout << "the count of " << target << " is " << 0 << endl;
+   }
+   else
+   {
+      int last_index = binary_search(arr, n, target, false);
+      cout << "the count of num " << target << " is " << last_index - first_index + 1 << endl;
+   }
 }
