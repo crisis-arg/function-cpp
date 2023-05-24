@@ -1,36 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
-int binarySearch(int arr[], int start, int end, int x)
+int binarysearch(int nums[], int n, int x)
 {
-   int mid = (start + end) / 2;
-   if (start > end)
+   int start = 0;
+   int end = n - 1;
+   int result = -1;
+   while (start <= end)
    {
-      return -1;
+      int mid = (start + end) / 2;
+      if (nums[mid] == x)
+      {
+         result = mid;
+         end = mid - 1;
+      }
+      else if (x < nums[mid])
+      {
+         end = mid - 1;
+      }
+      else if (x > nums[mid])
+      {
+         start = mid + 1;
+      }
    }
-   if (arr[mid] == x)
-   {
-      return mid;
-   }
-   else if (arr[mid] < x)
-   {
-      binarySearch(arr, mid + 1, end, x);
-   }
-   else if (arr[mid] > x)
-   {
-      binarySearch(arr, start, mid - 1, x);
-   }
+   return result;
 }
 int main()
 {
    int n;
    cin >> n;
-   int nums[n];
+   int arr[n];
+   int target;
+   cout << "enter a sorted array: " << endl;
    for (int i = 0; i < n; i++)
    {
-      cin >> nums[i];
+      cin >> arr[i];
    }
-   sort(nums, nums + n);
-   int target;
+   cout << "enter the num " << endl;
    cin >> target;
-   cout << binarySearch(nums, 0, n - 1, target);
+   cout << binarysearch(arr, n, target);
 }
