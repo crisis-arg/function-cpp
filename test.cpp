@@ -1,57 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
-int binary_search(int nums[], int n, int x, bool flag)
+int count_rotation(int nums[], int n)
 {
    int start = 0;
    int end = n - 1;
-   int result = -1;
    while (start <= end)
    {
+      if (nums[start] <= nums[end])
+      {
+         return start;
+      }
       int mid = (start + end) / 2;
-      if (nums[mid] == x)
+      int next = (mid + 1) % n;
+      int prev = (mid - 1) % n;
+      if (nums[mid] <= nums[next] && nums[mid] <= nums[prev])
       {
-         result = mid;
-         if (flag)
-         {
-            end = mid - 1;
-         }
-         else
-         {
-            start = mid + 1;
-         }
+         return mid;
       }
-      else if (x < nums[mid])
-      {
-         end = mid - 1;
-      }
-      else if (x > nums[mid])
+      else if (nums[mid] >= nums[start])
       {
          start = mid + 1;
       }
+      else if (nums[mid] <= nums[end])
+      {
+         end = mid - 1;
+      }
    }
-   return result;
+   return -1;
 }
 int main()
 {
    int n;
    cin >> n;
    int arr[n];
-   cout << "enter a sorted array " << endl;
    for (int i = 0; i < n; i++)
    {
       cin >> arr[i];
    }
-   int target;
-   cout << "enter the num " << endl;
-   cin >> target;
-   int first_index = binary_search(arr, n, target, true);
-   if (first_index == -1)
-   {
-      cout << "the count of " << target << " is " << 0 << endl;
-   }
-   else
-   {
-      int last_index = binary_search(arr, n, target, false);
-      cout << "the count of num " << target << " is " << last_index - first_index + 1 << endl;
-   }
+   int count = count_rotation(arr, n);
+   cout << "the rotation of the array is " << count << endl;
 }
