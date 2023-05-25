@@ -1,29 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
-int count_rotation(int nums[], int n)
+int circular_array_search(int nums[], int n, int x)
 {
    int start = 0;
    int end = n - 1;
    while (start <= end)
    {
-      if (nums[start] <= nums[end])
-      {
-         return start;
-      }
       int mid = (start + end) / 2;
-      int next = (mid + 1) % n;
-      int prev = (mid - 1) % n;
-      if (nums[mid] <= nums[next] && nums[mid] <= nums[prev])
+      if (x == nums[mid])
       {
          return mid;
       }
+      if (nums[mid] <= nums[end])
+      {
+         if (x > nums[mid] && x <= nums[end])
+         {
+            start = mid + 1;
+         }
+         else
+         {
+            end = mid - 1;
+         }
+      }
       else if (nums[mid] >= nums[start])
       {
-         start = mid + 1;
-      }
-      else if (nums[mid] <= nums[end])
-      {
-         end = mid - 1;
+         if (x < nums[mid] && x >= nums[start])
+         {
+            end = mid - 1;
+         }
+         else
+         {
+            start = mid + 1;
+         }
       }
    }
    return -1;
@@ -37,6 +45,7 @@ int main()
    {
       cin >> arr[i];
    }
-   int count = count_rotation(arr, n);
-   cout << "the rotation of the array is " << count << endl;
+   int target;
+   cin >> target;
+   cout << circular_array_search(arr, n, target);
 }
