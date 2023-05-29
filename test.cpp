@@ -2,8 +2,11 @@
 using namespace std;
 int main()
 {
-   vector<pair<int, int>> arr = {{5, 6}, {10, 69}, {58, 50}};
-   vector<pair<int, int>>::iterator it;
-   for (it = arr.begin(); it != arr.end(); it++)
-      cout << (*it).first << " " << (*it).second << endl;
+   map<int, string> m;
+   m[1] = "argha";
+   m[6] = "crisis";
+   m[2] = "cross";
+   m[3] = "yoo";
+   auto it = m.find(6);
+   cout << (*it).second;
 }
