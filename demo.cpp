@@ -1,43 +1,20 @@
 
 #include <bits/stdc++.h>
 using namespace std;
-bool pair_sum(int arr[], int n, int x)
+void Delete(int n)
 {
-  for (int i = 0; i < n; i++)
-  {
-    for (int j = 0; j < n; j++)
-    {
-      if (arr[i] == arr[j])
-      {
-        continue;
-      }
-      if (arr[i] + arr[j] == x)
-      {
-        return true;
-      }
-      if (arr[i] + arr[j] > x)
-      {
-        break;
-      }
-    }
-  }
-}
-int main()
-{
-  int n;
-  cin>>n;
-  int arr[n];
-  for(int i=0;i<n;i++)
-  {
-    cin>>arr[i];
-  }
-  cout<<"enter value";
-  int x;
-  cin>>x;
-  sort(arr,arr+n);
-  for(int i=0;i<n;i++)
-  {
-    cout<<arr[i];
-  }
-  cout<<pair_sum(arr, n, x);
+   node *temp1 = head;
+   if (n == 1)
+   {
+      head = (*temp1).next;
+      free(temp1);
+      return;
+   }
+   for (int i = 0; i < n - 2; i++)
+   {
+      temp1 = (*temp1).next;
+      node *temp2 = (*temp1).next;
+      (*temp1).next = (*temp2).next;
+      free(temp2);
+   }
 }
