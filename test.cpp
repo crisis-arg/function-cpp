@@ -5,7 +5,7 @@ struct node
    int data;
    node *next;
 };
- node *head;
+node *head;
 void insert(int x)
 {
    node *temp1 = (node *)malloc(sizeof(int));
@@ -36,24 +36,19 @@ void print()
    }
    cout << endl;
 }
-void Delete(int n)
+void reverse()
 {
-   node *temp1 = head;
-   node *temp2 = head;
-   if (n == 1)
+   node *curr, *previous, *following;
+   curr = head;
+   previous = NULL;
+   while (curr != NULL)
    {
-      head = (*temp1).next;
-      delete (temp1);
-      return;
+      following = (*curr).next;
+      (*curr).next = previous;
+      previous = curr;
+      curr = following;
    }
-   while (n != 1)
-   {
-      temp2 = temp1;
-      temp1 = (*temp1).next;
-      n--;
-   }
-   (*temp2).next = (*temp1).next;
-   free(temp1);
+   head = previous;
 }
 int main()
 {
@@ -66,8 +61,6 @@ int main()
    insert(9);
    insert(40);
    print();
-   int n;
-   cin >> n;
-   Delete(n);
+   reverse();
    print();
 }
