@@ -5,8 +5,7 @@ struct node
    int data;
    node *next;
 };
-node *head;
-void insert(int x)
+node *insert(node *head, int x)
 {
    node *temp1 = (node *)malloc(sizeof(int));
    node *temp2 = head;
@@ -24,43 +23,37 @@ void insert(int x)
       }
       (*temp2).next = temp1;
    }
+   return head;
 }
-void print()
+void print(node *p)
 {
-   node *temp = head;
-   cout << "the list is  ";
-   while (temp != NULL)
+   if (p == NULL)
    {
-      cout << (*temp).data << " ";
-      temp = (*temp).next;
+      return;
    }
-   cout << endl;
+   cout << (*p).data << " ";
+   print((*p).next);
 }
-void reverse()
+void reverse_print(node *rp)
 {
-   node *curr, *previous, *following;
-   curr = head;
-   previous = NULL;
-   while (curr != NULL)
+   if (rp == NULL)
    {
-      following = (*curr).next;
-      (*curr).next = previous;
-      previous = curr;
-      curr = following;
+      return;
    }
-   head = previous;
+   reverse_print((*rp).next);
+   cout << (*rp).data << " ";
 }
 int main()
 {
-   head = NULL;
-   insert(2);
-   insert(4);
-   insert(7);
-   insert(3);
-   insert(5);
-   insert(9);
-   insert(40);
-   print();
-   reverse();
-   print();
+   struct node *head = NULL;
+   head = insert(head, 2);
+   insert(head, 4);
+   insert(head, 7);
+   insert(head, 3);
+   insert(head, 5);
+   insert(head, 9);
+   insert(head, 40);
+   print(head);
+   cout << endl;
+   reverse_print(head);
 }
