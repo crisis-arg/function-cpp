@@ -13,7 +13,9 @@ int knapsack(int val[], int wt[], int w, int n)
     }
     if (wt[n - 1] <= w)
     {
-        dp[n][w] = max((val[n - 1] + knapsack(val, wt, w - wt[n - 1], n - 1)), knapsack(val, wt, w, n - 1));
+        int choose = val[n - 1] + knapsack(val, wt, w - wt[n - 1], n - 1);
+        int not_choose = knapsack(val, wt, w, n - 1);
+        dp[n][w] = max(choose, not_choose);
         return dp[n][w];
     }
     if (wt[n - 1] > w)
