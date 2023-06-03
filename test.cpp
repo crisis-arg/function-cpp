@@ -1,59 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
-struct node
+vector<vector<int>> dp(10, vector<int>(10, -1));
+int knapsack(int val[], int wt[], int w, int n)
 {
-   int data;
-   node *next;
-};
-node *insert(node *head, int x)
-{
-   node *temp1 = (node *)malloc(sizeof(int));
-   node *temp2 = head;
-   (*temp1).data = x;
-   (*temp1).next = NULL;
-   if (head == NULL)
+   if (n == 0 || w == 0)
    {
-      head = temp1;
+      return 0;
    }
-   else
+   if (dp[n][w] != -1)
    {
-      while ((*temp2).next != NULL)
-      {
-         temp2 = (*temp2).next;
-      }
-      (*temp2).next = temp1;
+      return dp[n][w];
    }
-   return head;
-}
-void print(node *p)
-{
-   if (p == NULL)
+   if (wt[n - 1] <= w)
    {
-      return;
+      dp[n][w] = max((val[n - 1] + knapsack(val, wt, w - wt[n - 1], n - 1)), knapsack(val, wt, w, n - 1));
+      return dp[n][w];
    }
-   cout << (*p).data << " ";
-   print((*p).next);
-}
-void reverse_print(node *rp)
-{
-   if (rp == NULL)
+   if (wt[n - 1] > w)
    {
-      return;
+      dp[n][w] = knapsack(val, wt, w, n - 1);
+      return dp[n][w];
    }
-   reverse_print((*rp).next);
-   cout << (*rp).data << " ";
 }
 int main()
 {
-   struct node *head = NULL;
-   head = insert(head, 2);
-   insert(head, 4);
-   insert(head, 7);
-   insert(head, 3);
-   insert(head, 5);
-   insert(head, 9);
-   insert(head, 40);
-   print(head);
-   cout << endl;
-   reverse_print(head);
+   int n;
+   cout << "enter the total item num: " << endl;
+   cin >> n;
+   int val[n];
+   int wt[n];
+   int w;
+   cout << "enter the values of items: " << endl;
+   for (int i = 0; i < n; i++)
+   {
+      cin >> val[i];
+   }
+   cout << "enter the weight of the items: " << endl;
+   for (int i = 0; i < n; i++)
+   {
+      cin >> wt[i];
+   }
+   cout << "enter the weight of the knapsack: " << endl;
+   cin >> w;
+   cout << knapsack(val, wt, w, n);
 }
