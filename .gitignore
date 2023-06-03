@@ -1,2 +1,2 @@
 *.exe
-test.cpp
+./test.cpp
