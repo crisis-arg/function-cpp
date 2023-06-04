@@ -3,7 +3,7 @@ using namespace std;
 // vector<vector<int>> dp(10, vector<int>(10,-1));
 int knapsack(int val[], int wt[], int w, int n)
 {
-    vector<vector<int>> dp(n+1, vector<int>(w+1,0));
+    vector<vector<int>> dp(n + 1, vector<int>(w + 1, 0));
     for (int i = 0; i < n + 1; i++)
     {
         for (int j = 0; j < w + 1; j++)
@@ -16,7 +16,7 @@ int knapsack(int val[], int wt[], int w, int n)
             {
                 dp[i][j] = max(val[i - 1] + dp[i - 1][j - wt[i - 1]], dp[i - 1][j]);
             }
-            else  if (wt[i - 1] > j)
+            else if (wt[i - 1] > j)
             {
                 dp[i][j] = dp[i - 1][j];
             }
