@@ -1,23 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
-bool subset_sum(int arr[], int sum, int n)
+int subset_sum(int arr[], int sum, int n)
 {
-  vector<vector<bool>> dp(n + 1, vector<bool>(sum + 1));
+  vector<vector<int>> dp(n + 1, vector<int>(sum + 1, 0));
   for (int i = 0; i < n + 1; i++)
   {
     for (int j = 0; j < sum + 1; j++)
     {
-      if (i == 0)
-      {
-        dp[i][j] = false;
-      }
       if (j == 0)
       {
-        dp[i][j] = true;
+        dp[i][j] = 1;
+      }
+      if (i == 0)
+      {
+        if (j != 0)
+        {
+          dp[i][j] = 0;
+        }
       }
       else if (arr[i - 1] <= j)
       {
-        dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j];
+        dp[i][j] = dp[i - 1][j - arr[i - 1]] + dp[i - 1][j];
       }
       else if (arr[i - 1] > j)
       {
@@ -26,22 +29,6 @@ bool subset_sum(int arr[], int sum, int n)
     }
   }
   return dp[n][sum];
-}
-bool equal_sum(int arr[], int n)
-{
-  int sum = 0;
-  for (int i = 0; i < n; i++)
-  {
-    sum = sum + arr[i];
-  }
-  if (sum % 2 != 0)
-  {
-    return false;
-  }
-  else
-  {
-    return subset_sum(arr, sum / 2, n);
-  }
 }
 int main()
 {
@@ -54,5 +41,8 @@ int main()
   {
     cin >> arr[i];
   }
-  cout << equal_sum(arr, n);
+  int target;
+  cout << "enter the sum: " << endl;
+  cin >> target;
+  cout << subset_sum(arr, target, n);
 }
