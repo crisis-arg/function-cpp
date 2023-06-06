@@ -27,6 +27,22 @@ bool subset_sum(int arr[], int sum, int n)
   }
   return dp[n][sum];
 }
+bool equal_sum(int arr[], int n)
+{
+  int sum = 0;
+  for (int i = 0; i < n; i++)
+  {
+    sum = sum + arr[i];
+  }
+  if (sum % 2 != 0)
+  {
+    return false;
+  }
+  else
+  {
+    return subset_sum(arr, sum / 2, n);
+  }
+}
 int main()
 {
   int n;
@@ -38,8 +54,5 @@ int main()
   {
     cin >> arr[i];
   }
-  int target;
-  cout << "enter the sum: " << endl;
-  cin >> target;
-  cout << subset_sum(arr, target, n);
+  cout << equal_sum(arr, n);
 }
