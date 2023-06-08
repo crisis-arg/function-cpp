@@ -1,23 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<int> subset_sum(int arr[], int sum, int n)
+int count_subset_sum(int arr[], int sum, int n)
 {
-  vector<vector<bool>> dp(n + 1, vector<bool>(sum + 1));
+  vector<vector<int>> dp(n + 1, vector<int>(sum + 1));
   for (int i = 0; i < n + 1; i++)
   {
     for (int j = 0; j < sum + 1; j++)
     {
-      if (i == 0)
-      {
-        dp[i][j] = false;
-      }
       if (j == 0)
       {
-        dp[i][j] = true;
+        dp[i][j] = 1;
+      }
+      if (i == 0)
+      {
+        if (j != 0)
+        {
+          dp[i][j] = 0;
+        }
       }
       else if (arr[i - 1] <= j)
       {
-        dp[i][j] = dp[i - 1][j - arr[i - 1]] || dp[i - 1][j];
+        dp[i][j] = dp[i - 1][j - arr[i - 1]] + dp[i - 1][j];
       }
       else if (arr[i - 1] > j)
       {
@@ -25,31 +28,23 @@ vector<int> subset_sum(int arr[], int sum, int n)
       }
     }
   }
-  vector<int> ans;
-  for (int i = 0; i < (sum + 1) / 2; i++)
-  {
-    if (dp[n][i] == true)
-    {
-      ans.push_back(i);
-    }
-  }
-  return ans;
+  return dp[n][sum];
 }
-int min_subset_sum(int arr[], int n)
+// sum(s1)-sum(s2)=diff........(1)
+// sum(s1)+sum(s2)=sum(arr).......(2)
+// adding two equations (1)+(2)
+// 2*sum(1)=diff+sum(arr)
+// sum(s1)={diff+sum(arr)}/2
+// if I find the count of sum(s1), i find the count of the diff in the given array
+int diff_count(int arr[], int diff, int n)
 {
-  int range = 0;
+  int arr_sum = 0;
   for (int i = 0; i < n; i++)
   {
-    range = range + arr[i];
+    arr_sum = arr_sum + arr[i];
   }
-  vector<int> ans;
-  ans = subset_sum(arr, range, n);
-  int min_sum = INT_MAX;
-  for (int i = 0; i < ans.size(); i++)
-  {
-    min_sum = min(min_sum, range - 2 * ans[i]);
-  }
-  return min_sum;
+  int sub1 = (diff + arr_sum) / 2;
+  return count_subset_sum(arr, sub1, n);
 }
 int main()
 {
@@ -62,5 +57,8 @@ int main()
   {
     cin >> arr[i];
   }
-  cout << min_subset_sum(arr, n);
+  int diff;
+  cout << "enter the diff: " << endl;
+  cin >> diff;
+  cout << diff_count(arr, diff, n);
 }
