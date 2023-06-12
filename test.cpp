@@ -1,56 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
-int unbounded_knapsack(int coins[], int w, int n)
+vector<vector<int>> dp(100, vector<int>(100, -1));
+int lcs(string x, string y, int n, int m)
 {
-    vector<vector<int>> dp(n + 1, vector<int>(w + 1));
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1));
     for (int i = 0; i < n + 1; i++)
     {
-        for (int j = 0; j < w + 1; j++)
+        for (int j = 0; j < m + 1; j++)
         {
-            if (i == 0)
+            if (i == 0 || j == 0)
             {
-                dp[i][j] = INT_MAX - 1;
+                dp[i][j] = 0;
             }
-            if (j == 0)
+            else if (x[i - 1] == y[j - 1])
             {
-                if (i != 0)
-                {
-                    dp[i][j] = 0;
-                }
+                dp[i][j] = (1 + dp[i - 1][j - 1]);
             }
-            else if (i > 1 && coins[i - 1] <= j)
+            else if (x[i - 1] != y[j - 1])
             {
-                dp[i][j] = min(dp[i][j - coins[i - 1]] + 1, dp[i - 1][j]);
-            }
-            else if (i > 1 && coins[i - 1] > j)
-            {
-                dp[i][j] = dp[i - 1][j];
-            }
-            if (i == 1 && (j % coins[0]) == 0)
-            {
-                dp[i][j] = j / coins[0];
-            }
-            else if (i == 1 && (j % coins[0]) != 0)
-            {
-                dp[i][j] = INT_MAX - 1;
+                dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]);
             }
         }
     }
-    return dp[n][w];
+    return dp[n][m];
 }
 int main()
 {
-    int n;
-    cout << "enter the total num of coins: " << endl;
+    string x, y;
+    int n, m;
+    cout << "enter the length of the 1st string: " << endl;
     cin >> n;
-    int coins[n];
-    int w;
-    cout << "enter the value of coins: " << endl;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> coins[i];
-    }
-    cout << "enter the weight of the knapsack: " << endl;
-    cin >> w;
-    cout << unbounded_knapsack(coins, w, n);
+    cout << "enter the string: " << endl;
+    cin >> x;
+    cout << "enter the length of the 2nd string: " << endl;
+    cin >> m;
+    cout << "enter the string: " << endl;
+    cin >> y;
+    cout << lcs(x, y, n, m);
 }
