@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<vector<int>> dp(100, vector<int>(100, -1));
 int lcs(string x, string y, int n, int m)
 {
     vector<vector<int>> dp(n + 1, vector<int>(m + 1));
