@@ -23,7 +23,7 @@ int lcs(string x, int n)
             }
         }
     }
-    return n-dp[n][n];
+    return n - dp[n][n];
 }
 int main()
 {
