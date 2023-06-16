@@ -36,12 +36,12 @@ string lcs(string x, string y, int n, int m)
         {
             if (dp[i - 1][j] > dp[i][j - 1])
             {
-                s.push_back(x[i-1]);
+                s.push_back(x[i - 1]);
                 i--;
             }
             else
             {
-                s.push_back(y[j-1]);
+                s.push_back(y[j - 1]);
                 j--;
             }
         }
@@ -49,12 +49,12 @@ string lcs(string x, string y, int n, int m)
     while (i > 0)
     {
         s.push_back(x[i - 1]);
-            i--;
+        i--;
     }
     while (j > 0)
     {
         s.push_back(y[j - 1]);
-            j--;
+        j--;
     }
     reverse(s.begin(), s.end());
     return s;
