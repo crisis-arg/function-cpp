@@ -31,5 +31,5 @@ int main()
     cin >> n;
     cout << "enter the string: " << endl;
     cin >> x;
-    cout << lcs(x, n);
+    cout << "yo yo";
 }
