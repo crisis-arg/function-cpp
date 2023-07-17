@@ -68,7 +68,8 @@
     "thread": "cpp",
     "typeindex": "cpp",
     "typeinfo": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "matrix_chain_multiplication": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
