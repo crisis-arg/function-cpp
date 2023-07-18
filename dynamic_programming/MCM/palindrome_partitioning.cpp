@@ -42,6 +42,6 @@ int matrix_chain(string s, int i, int j)
 int main()
 {
     string s;
-    getline(cin, s);
+    cin >> s;
     cout << matrix_chain(s, 0, s.length() - 1);
 }
