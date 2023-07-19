@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<vector<int>> dp(10, vector<int>(10, -1));
+vector<vector<int>> dp(1000, vector<int>(1000, -1));
 bool is_palindrome(string s, int i, int j)
 {
     while (i < j)
@@ -19,6 +19,7 @@ bool is_palindrome(string s, int i, int j)
 }
 int matrix_chain(string s, int i, int j)
 {
+    int L, R;
     if (i >= j)
     {
         return 0;
@@ -34,11 +35,26 @@ int matrix_chain(string s, int i, int j)
     dp[i][j] = INT_MAX;
     for (int k = i; k < j; k++)
     {
-        dp[i][j] = min(
-            dp[i][j],
-            matrix_chain(s, i, k) +
-                matrix_chain(s, k + 1, j) +
-                1);
+        if (dp[i][k] != -1)
+        {
+            L = dp[i][k];
+        }
+        else
+        {
+            L = matrix_chain(s, i, k);
+            dp[i][k] = L;
+        }
+        if (dp[k + 1][j] != -1)
+        {
+            R = dp[k + 1][j];
+        }
+        else
+        {
+            R = matrix_chain(s, k + 1, j);
+            dp[k + 1][j] = R;
+        }
+        // int temp = 1 + L + R;
+        dp[i][j] = min(dp[i][j], 1 + R + L);
     }
     return dp[i][j];
 }
