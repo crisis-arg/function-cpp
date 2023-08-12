@@ -30,21 +30,6 @@ bst_node *insert(bst_node *root, int data)
     }
     return root;
 }
-int find_min(bst_node *root)
-{
-    if (root == NULL)
-    {
-        return -1;
-    }
-    else if ((*root).left = NULL)
-    {
-        return (*root).data;
-    }
-    else
-    {
-        return find_min((*root).left);
-    }
-}
 int cnt = 10;
 void print_1(bst_node *root, int space)
 {
@@ -68,21 +53,6 @@ void print_1(bst_node *root, int space)
 void print(bst_node *root)
 {
     print_1(root, 0);
-}
-int find_max(bst_node *root)
-{
-    if (root == NULL)
-    {
-        return -1;
-    }
-    else if ((*root).right = NULL)
-    {
-        return (*root).data;
-    }
-    else
-    {
-        return find_min((*root).right);
-    }
 }
 int main()
 {
