@@ -32,8 +32,14 @@ bst_node *insert(bst_node *root, int data)
 }
 bst_node *findmin(bst_node *root)
 {
+    if (root == NULL)
+    {
+        return NULL;
+    }
     while (root->left != NULL)
+    {
         root = root->left;
+    }
     return root;
 }
 struct bst_node *Delete(struct bst_node *root, int data)
