@@ -20,7 +20,7 @@ int find(int index, string s, unordered_map<string, bool> mp, vector<int> dp)
         {
             extra = 0;
         }
-        extra += find(i + 1, s,mp, dp);
+        extra += find(i + 1, s, mp, dp);
         res = min(res, extra);
     }
     return res;
@@ -34,4 +34,7 @@ int minExtraChar(string s, vector<string> dictionary)
     }
     vector<int> dp(s.size(), -1);
     return find(0, s, mp, dp);
+}
+int main()
+{
 }
