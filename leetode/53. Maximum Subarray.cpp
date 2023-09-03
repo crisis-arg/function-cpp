@@ -2,7 +2,7 @@
 using namespace std;
 int max_sub_sum(vector<int> nums)
 {
-    int max_sum = 0;
+    int max_sum = INT_MIN;
     int curr_sum = 0;
     for (int i = 0; i < nums.size(); i++)
     {
