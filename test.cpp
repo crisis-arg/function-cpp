@@ -1,19 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<int> dailyTemperatures(vector<int> &temps)
+int lengthOfLongestSubstring(string s)
 {
-  vector<int> results(temps.size());
-  stack<int> stack;
-  for (int i = 0; i < temps.size(); i++)
+  vector<int> temp(256, -1);
+  int length = 0;
+  int start = -1;
+  for (int i = 0; i < s.length(); i++)
   {
-    while (!stack.empty() && temps[stack.top()] < temps[i])
+    if (temp[s[i]] > start)
     {
-      results[stack.top()] = i - stack.top();
-      stack.pop();
+      start = temp[s[i]];
     }
-    stack.push(i);
+    temp[s[i]] = i;
+    length = max(length, i - start);
   }
-  return results;
+  return length;
 }
-int main()
-{}
