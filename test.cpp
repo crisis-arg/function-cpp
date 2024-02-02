@@ -1,18 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
-int lengthOfLongestSubstring(string s)
+vector<int> sequentialDigits(int low, int high)
 {
-  vector<int> temp(256, -1);
-  int length = 0;
-  int start = -1;
-  for (int i = 0; i < s.length(); i++)
+  vector<int> a;
+  for (int i = 1; i <= 9; i++)
   {
-    if (temp[s[i]] > start)
+    int num = i;
+    int nextdig = i + 1;
+    while (nextdig <= 9 && num <= high)
     {
-      start = temp[s[i]];
+      num = num * 10 + nextdig;
+      if (num >= low && num <= high)
+      {
+        a.push_back(num);
+      }
+      nextdig++;
     }
-    temp[s[i]] = i;
-    length = max(length, i - start);
   }
-  return length;
+  sort(a.begin(), a.end());
+  return a;
 }
